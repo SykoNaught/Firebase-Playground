@@ -1,14 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 body {
-  background: #515151;
-  display: flex;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+  background: hsl(0, 0%, 32%);
   font-family: "Roboto", sans-serif;
+  margin:0px;
 }
 
+*{
+  box-sizing:border-box
+}
 h1, h2{
   text-align:center;
   color:white;
@@ -16,7 +16,114 @@ h1, h2{
   letter-spacing:.1em;
   text-transform:uppercase;
 }
+.header-wrap{
+  background-color:white;
+  box-shadow: 0 2px 2px 0 rgba(60,75,100,.14), 
+  0 3px 1px -2px rgba(60,75,100,.12), 
+  0 1px 5px 0 rgba(60,75,100,.2);
+}
+#header{
+  width:100%;
+  height:60px;
+  display:flex;
+  padding:20px 10px;
+  justify-content:flex-end;
+}
+#header .sign-out{
+  color:#000;
+  align-self:flex-end;
+}
 
+.breadcrumbs{
+  padding:10px 20px;
+  border-top: 1px solid #dedede;
+  font-size:13px;
+}
+.breadcrumbs a{
+  text-decoration:none;
+  margin-right:5px
+}
+#sidebar{
+  min-height: 65px;
+  background-color: #2b3d5a;
+  color: #eee;
+  padding: 15px;
+  width: 300px;
+  height: 100%;
+  display: block;
+  position: fixed;
+  box-sizing: border-box;
+}
+.logo{
+  font-weight:bold;
+  font-size:1.5em;
+  display:block;
+  width:100%;
+  border-bottom:1px solid #cccc;
+  padding-bottom:15px
+}
+
+
+.sidebar-nav{
+  list-style-type:none;
+  margin:20px 0px;
+  padding:0px;
+}
+.sidebar-nav li{
+  display:block;
+  margin:0px;
+}
+
+.sidebar-nav a{
+  color:#eee !important;
+  text-decoration:none;
+  padding:10px 0px;
+  display:block;
+}
+
+.sign-out{
+    background: transparent;
+    color: #eee;
+    cursor: pointer;
+    border: 0px;
+    height: 100%;
+}
+
+.flex-contain{
+  width:100%;
+  padding:0px;
+  display:flex;
+  flex-wrap:nowrap;
+  height:100%;
+  min-height:100%;
+}
+
+.body-section{
+  width: 100%;
+  text-align: left;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin-left: 300px;
+  background-color:#f0f0f0;
+  color:#000;
+}
+.body-section h1{
+  text-align:left;
+  color:#000;
+  margin:0px;
+}
+
+.body-content{
+  padding:20px;
+}
+.flex-center{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  height:calc(100vh - 75px);
+}
 .form-container {
   width: 360px;
   background-color: white;

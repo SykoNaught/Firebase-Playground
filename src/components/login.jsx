@@ -61,44 +61,46 @@ const Login = ({history}) => {
     }
   return (
       
-    <div className="registration-form">
-      <center><h1>Sign In</h1></center>
-      <div className="form-container">
-        <form className="register-form" onSubmit={handleSubmit}>
+    <div className="registration-form flex-center">
+      <div>
+        <center><h1>Sign In</h1></center>
+        <div className="form-container">
+          <form className="register-form" onSubmit={handleSubmit}>
 
-        
-        {error && <div className='error-message'>{error}</div>}
+          
+          {error && <div className='error-message'>{error}</div>}
 
-          <input
-            id="email"
-            className="form-field"
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={state.email}
-            onChange={handleInputChange} />
+            <input
+              id="email"
+              className="form-field"
+              type="text"
+              placeholder="Email"
+              name="email"
+              value={state.email}
+              onChange={handleInputChange} />
 
-            {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
-          <input
-            id="password"
-            className="form-field"
-            type="password"
-            placeholder="password"
-            name="password"
-            value={state.password}
-            onChange={handleInputChange} />
+              {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
+            <input
+              id="password"
+              className="form-field"
+              type="password"
+              placeholder="password"
+              name="password"
+              value={state.password}
+              onChange={handleInputChange} />
 
-            {submitted && !state.password && <span id="confirm-password-error">Please enter your Password</span>}
+              {submitted && !state.password && <span id="confirm-password-error">Please enter your Password</span>}
 
-          <button className="form-field" type="submit">
-            Register
-          </button>
-        </form>
-      </div>
-      <div className="floating-text">
-          <Link to='/signup'>
-              Don't have an account? Sign Up Here.
-          </Link>
+            <button className="form-field" type="submit">
+              Register
+            </button>
+          </form>
+        </div>
+        <div className="floating-text">
+            <Link to='/signup'>
+                Don't have an account? Sign Up Here.
+            </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase/firebase'
+import Header from '../components/header'
+import Sidebar from './Sidebar'
       
 
 const UserList = () => {
@@ -22,29 +24,38 @@ const UserList = () => {
     }, [])
 
     return (
-        <div>
-            <h2>Users</h2>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {users.map((user, i) => (
-                    <tr key={i}>
-                        <td>{user.firstName}</td>
-                        <td>{user.lastName}</td>
-                        <td>{user.email}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <button className="floating-text" onClick={() => firebase.auth().signOut()}>
-                Sign Out
-            </button>
+        
+        <div className="flex-contain">       
+            <Sidebar />
+            <div class="body-section">
+                <Header />
+                
+                <div class="body-content">
+                    <div class="users-wrapper">
+                        <h2>Users</h2>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {users.map((user, i) => (
+                                <tr key={i}>
+                                    <td>{user.firstName}</td>
+                                    <td>{user.lastName}</td>
+                                    <td>{user.email}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                
+                </div>
+                
+            </div>
         </div>
     )
 }

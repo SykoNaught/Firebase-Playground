@@ -10,8 +10,7 @@ const SignUp = ({history}) => {
     const [state, setState] = useState({
         email: '',
         password: '',
-        confirmPassword: '',
-        redirect: false
+        confirmPassword: ''
     });
 
     const [validEmail, setValidEmail] = useState(false)
@@ -116,61 +115,63 @@ const SignUp = ({history}) => {
     }
   return (
       
-    <div className="registration-form">
-      <center><h1>Sign Up</h1></center>
-      <div className="form-container">
-        <form className="register-form" 
-            onSubmit={e => {
-                e.preventDefault(); 
-                handleSubmit(validEmail, validPass, confirmPass, e.target.email, e.target.password, e.target.confirmPassword)
-            }}
-        >
-        {error && <div className='error-message'>{error}</div>}
-          <input
-            id="email"
-            className="form-field"
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={state.email}
-            onChange={handleInputChange} />
+    <div className="registration-form flex-center">
+        <div>
+            <center><h1>Sign Up</h1></center>
+            <div className="form-container">
+                <form className="register-form" 
+                    onSubmit={e => {
+                        e.preventDefault(); 
+                        handleSubmit(validEmail, validPass, confirmPass, e.target.email, e.target.password, e.target.confirmPassword)
+                    }}
+                >
+                {error && <div className='error-message'>{error}</div>}
+                <input
+                    id="email"
+                    className="form-field"
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    value={state.email}
+                    onChange={handleInputChange} />
 
-          {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
-          {submitted && state.email && !validEmail && <span id="email-error2">Please enter a valid email address</span>}
+                {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
+                {submitted && state.email && !validEmail && <span id="email-error2">Please enter a valid email address</span>}
 
-            <ReactPasswordStrength
-            minLength={6}
-            minScore={2}
-            scoreWords={['weak', 'weak', 'okay', 'good', 'strong']}
-            changeCallback={handlePassword}
-            className="form-field"
-            inputProps={{ name: "password", autoComplete: "off", id: "password", placeholder:"Password", value:""  }} />
+                    <ReactPasswordStrength
+                    minLength={6}
+                    minScore={1}
+                    scoreWords={['weak', 'weak', 'okay', 'good', 'strong']}
+                    changeCallback={handlePassword}
+                    className="form-field"
+                    inputProps={{ name: "password", autoComplete: "off", id: "password", placeholder:"Password", value:""  }} />
 
-          {submitted && !state.password && <span id="password-error">Please enter a Password</span>}
-          {submitted && state.password && !validPass && <span id="password-error2">Password is too weak</span>}
+                {submitted && !state.password && <span id="password-error">Please enter a Password</span>}
+                {submitted && state.password && !validPass && <span id="password-error2">Password is too weak</span>}
 
-          <input
-            id="confirm-password"
-            className="form-field"
-            type="password"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            value={state.confirmPassword}
-            onChange={handleInputChange} />
+                <input
+                    id="confirm-password"
+                    className="form-field"
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    value={state.confirmPassword}
+                    onChange={handleInputChange} />
 
-            {submitted && !state.confirmPassword && <span id="confirm-password-error">Please confirm your Password</span>}
-            {submitted && state.confirmPassword && !confirmPass && <span id="confirm-password-error2">Passwords do not match</span>}
+                    {submitted && !state.confirmPassword && <span id="confirm-password-error">Please confirm your Password</span>}
+                    {submitted && state.confirmPassword && !confirmPass && <span id="confirm-password-error2">Passwords do not match</span>}
 
-          <button className="form-field" type="submit">
-            Register
-          </button>
-        </form>
-      </div>
-      <div className="floating-text">
-          <Link to='/login'>
-              Already have an account? Sign In Here.
-          </Link>
-      </div>
+                <button className="form-field" type="submit">
+                    Register
+                </button>
+                </form>
+            </div>
+            <div className="floating-text">
+                <Link to='/login'>
+                    Already have an account? Sign In Here.
+                </Link>
+            </div>
+        </div>
     </div>
   );
 };
