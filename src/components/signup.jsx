@@ -70,8 +70,6 @@ const SignUp = ({history}) => {
 
     
     const handleSubmit = useCallback(async (validEmail, validPass, confirmPass, email, password, confirmPassword )  => {
-
-
         setSubmitted(true)
         
         if (confirmPassword.value === password.value){
@@ -85,15 +83,6 @@ const SignUp = ({history}) => {
         }else{
             isValid = false
         }
-
-        console.log('Email: ' + email.value);
-        console.log('Password: ' + password.value);
-        console.log('Confirm: ' + confirmPassword.value);
-        console.log('validEmail: ' + validEmail);
-        console.log('validPass: ' + validPass);
-        console.log('confirmPass: ' + confirmPass);
-
-        console.log('is valid: ' + isValid);
         if (isValid){
             try {
                 await firebase
@@ -125,45 +114,45 @@ const SignUp = ({history}) => {
                         handleSubmit(validEmail, validPass, confirmPass, e.target.email, e.target.password, e.target.confirmPassword)
                     }}
                 >
-                {error && <div className='error-message'>{error}</div>}
-                <input
-                    id="email"
-                    className="form-field"
-                    type="text"
-                    placeholder="Email"
-                    name="email"
-                    value={state.email}
-                    onChange={handleInputChange} />
+                    {error && <div className='error-message'>{error}</div>}
+                    <input
+                        id="email"
+                        className="form-field"
+                        type="text"
+                        placeholder="Email"
+                        name="email"
+                        value={state.email}
+                        onChange={handleInputChange} />
 
-                {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
-                {submitted && state.email && !validEmail && <span id="email-error2">Please enter a valid email address</span>}
+                    {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
+                    {submitted && state.email && !validEmail && <span id="email-error2">Please enter a valid email address</span>}
 
                     <ReactPasswordStrength
-                    minLength={6}
-                    minScore={1}
-                    scoreWords={['weak', 'weak', 'okay', 'good', 'strong']}
-                    changeCallback={handlePassword}
-                    className="form-field"
-                    inputProps={{ name: "password", autoComplete: "off", id: "password", placeholder:"Password", value:""  }} />
+                        minLength={6}
+                        minScore={1}
+                        scoreWords={['weak', 'weak', 'okay', 'good', 'strong']}
+                        changeCallback={handlePassword}
+                        className="form-field"
+                        inputProps={{ name: "password", autoComplete: "off", id: "password", placeholder:"Password", value:""  }} />
 
-                {submitted && !state.password && <span id="password-error">Please enter a Password</span>}
-                {submitted && state.password && !validPass && <span id="password-error2">Password is too weak</span>}
+                    {submitted && !state.password && <span id="password-error">Please enter a Password</span>}
+                    {submitted && state.password && !validPass && <span id="password-error2">Password is too weak</span>}
 
-                <input
-                    id="confirm-password"
-                    className="form-field"
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    value={state.confirmPassword}
-                    onChange={handleInputChange} />
+                    <input
+                        id="confirm-password"
+                        className="form-field"
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        value={state.confirmPassword}
+                        onChange={handleInputChange} />
 
                     {submitted && !state.confirmPassword && <span id="confirm-password-error">Please confirm your Password</span>}
                     {submitted && state.confirmPassword && !confirmPass && <span id="confirm-password-error2">Passwords do not match</span>}
 
-                <button className="form-field" type="submit">
-                    Register
-                </button>
+                    <button className="form-field" type="submit">
+                        Register
+                    </button>
                 </form>
             </div>
             <div className="floating-text">

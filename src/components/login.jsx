@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BrowserRouter as Router, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import firebase from '../firebase/firebase' 
 import { AuthContext } from '../Auth'
 

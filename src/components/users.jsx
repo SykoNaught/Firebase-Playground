@@ -7,6 +7,9 @@ import Sidebar from './Sidebar'
 const UserList = () => {
     
     const [users, setUsers] = useState([])
+
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const ref = firebase.firestore().collection("users")
 
     function getUsers() {
@@ -18,6 +21,17 @@ const UserList = () => {
             setUsers(items)
         }) 
     }
+
+    function onSubmit(e) {
+        e.preventDefault()
+        ref.add({
+            firstName,
+            lastName
+        }).then(() => {
+            setFirstName('')
+            setLastName('')
+        })
+    }
     
     useEffect(() => {
         getUsers()
@@ -27,18 +41,25 @@ const UserList = () => {
         
         <div className="flex-contain">       
             <Sidebar />
-            <div class="body-section">
-                <Header />
+            <div className="body-section">
+                <Header PageName="Users" />
                 
-                <div class="body-content">
-                    <div class="users-wrapper">
-                        <h2>Users</h2>
-                        <table className="table">
+                <div className="body-content">
+                    
+                    <div className="users-input section">
+                        <h2>Add Users</h2>
+                        <form className="users-form" onSubmit={onSubmit}>
+                            <input type="text" className="form-field" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.currentTarget.value)} />
+                            <input type="text" className="form-field" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.currentTarget.value)} />
+                            <button type="submit" className="form-field" >Submit</button>
+                        </form>
+                    </div>
+                    <div className="users-wrapper">
+                        <table className="table section">
                             <thead>
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Email</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,7 +67,6 @@ const UserList = () => {
                                 <tr key={i}>
                                     <td>{user.firstName}</td>
                                     <td>{user.lastName}</td>
-                                    <td>{user.email}</td>
                                 </tr>
                             ))}
                             </tbody>

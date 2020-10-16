@@ -1,6 +1,5 @@
 import React from 'react';
 import '../index.css'
-import firebase from '../firebase/firebase'
 import { Link } from 'react-router-dom'
 
       

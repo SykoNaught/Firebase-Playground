@@ -4,7 +4,7 @@ import SignUp from './components/signup'
 import Login from './components/login'
 import Dashboard from './components/Dashboard'
 import Users from './components/users'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import { AuthProvider } from "./Auth"
 import PrivateRoute from "./PrivateRoute"
 

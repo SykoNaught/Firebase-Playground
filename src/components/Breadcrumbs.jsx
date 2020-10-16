@@ -8,7 +8,7 @@ const Breadcrumbs = () => {
 
     return (
         <div className="breadcrumbs">
-            <Link to='/users'>Home</Link>  
+            <Link to='/'>Home</Link>  
              / Dashboard
         </div>
     )
