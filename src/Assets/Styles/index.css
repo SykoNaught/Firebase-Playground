@@ -134,7 +134,7 @@ h1, h2{
 
 .sidebar-nav{
   list-style-type:none;
-  margin:20px 0px;
+  margin:20px -15px;
   padding:0px;
 }
 .sidebar-nav li{
@@ -145,8 +145,12 @@ h1, h2{
 .sidebar-nav a{
   color:#eee !important;
   text-decoration:none;
-  padding:10px 0px;
+  padding:15px;
   display:block;
+}
+
+.sidebar-nav a:hover{
+  background-color:	hsl(0, 0%, 95%, 15%);
 }
 
 .sign-out{
@@ -445,6 +449,13 @@ td.text-right {
 .contacts-form .form-field + .form-field{
   margin-left:15px;
 }
+
+.contacts-form input[type="number"]::-webkit-outer-spin-button,.contacts-form input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+.contacts-form input[type="number"]{
+  -moz-appearance: textfield;
+}
 .contacts-wrapper{
   overflow:hidden;
 }
@@ -455,13 +466,15 @@ td.text-right {
   position: absolute;
   right: -100px;
   bottom: 0;
-  transform: translateY(calc(-50% + 6px));
+  transform: translateY(calc(-50% + 9px));
   transition: all 0.25s ease;
 }
 .contacts-wrapper tr:hover .action-buttons{
   right: 10px;
   display:flex;
 }
+
+/*---User Item---*/
 .user-actions{
   position:relative;
   text-align:center;
@@ -541,7 +554,7 @@ td.text-right {
   text-align:center;
   margin:0 2.5px;
   color:white;
-  border-bottom: 2px solid #9ea7af;
+  border-bottom: 3px solid #9ea7af;
 }
 .delete-btn{
   background-color:#b60000;

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/firebase'
 import Header from '../Layout/Header'
 import Sidebar from '../Layout/Sidebar'
-import ContactComponent from './ContactListItem'
+import ContactListItem from './ContactListItem'
 import DialogBox from '../Dialog/Dialog'
-import ContactForm from './ContactForm'
+import AddContactForm from './AddContactForm'
 
       
 
@@ -35,7 +35,7 @@ const Contacts = () => {
     function search(contacts) {
         let query = searchValue.toLowerCase()
         return contacts.filter(
-            (contact) =>
+            (contact) => 
             contact.firstName.toLowerCase().indexOf(query) > -1 ||
             contact.lastName.toLowerCase().indexOf(query) > -1 ||
             contact.email.toLowerCase().indexOf(query) > -1 ||
@@ -46,7 +46,7 @@ const Contacts = () => {
     let contactList = (
         <tbody>
             {search(contacts).map((contact, i) => {
-               return <ContactComponent
+               return <ContactListItem
                 firstName={contact.firstName}
                 lastName={contact.lastName}
                 email={contact.email}
@@ -91,7 +91,7 @@ const Contacts = () => {
                     openDialog = {openDialog}
                     setOpenDialog = {setOpenDialog}
                     maxWidth='md'>
-                    <ContactForm
+                    <AddContactForm
                     setOpenDialog={setOpenDialog} />
                 </DialogBox>
             </div>

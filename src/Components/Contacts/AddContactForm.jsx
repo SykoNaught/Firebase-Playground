@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import firebase from '../../firebase/firebase'
 
-const ContactForm = (props) => {
+const AddContactForm = (props) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -27,6 +27,7 @@ const ContactForm = (props) => {
         setEmail('')
         setPhone('')
     }
+
     return (
         <form className="contacts-form" onSubmit={addOrEditHandler}>
             <Grid container spacing={2} justify="space-between">
@@ -40,7 +41,7 @@ const ContactForm = (props) => {
                     <input type="text" name="Email" className="form-field" placeholder="Email" value={email} onChange={e => setEmail(e.currentTarget.value)} required />
                 </Grid>
                 <Grid container item xs={6}>
-                    <input type="text" name="Phone" className="form-field" placeholder="Phone" value={phone} onChange={e => setPhone(e.currentTarget.value)} required />
+                    <input type="number" name="Phone" className="form-field" placeholder="Phone: (xxx) xxx-xxxx" value={phone} onChange={e => setPhone(e.currentTarget.value)} required />
                 </Grid>
                 <Grid container item xs={12}>
                     <div className="modal-btn-wrap flex justify-end">
@@ -54,4 +55,4 @@ const ContactForm = (props) => {
     )
 }
 
-export default ContactForm
+export default AddContactForm
