@@ -1,0 +1,125 @@
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+  }
+  .wrapper .loading {
+    width: 25%;
+    height: 100%;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wrapper .loading.squared .square {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #ff7800;
+    display: block;
+    border-radius: 2px;
+    transform: rotate(45deg) scale(1);
+    animation: square 2s linear infinite;
+  }
+  .wrapper .loading.squared .square.sq1 {
+    animation-delay: -.667s;
+  }
+  .wrapper .loading.squared .square.sq2 {
+    animation-delay: -1.334s;
+  }
+  .wrapper .loading.squared:hover .square {
+    animation-duration: 6s;
+  }
+  .wrapper .loading.squared:hover .square.sq1 {
+    animation-delay: -2s;
+  }
+  .wrapper .loading.squared:hover .square.sq2 {
+    animation-delay: -4s;
+  }
+  .wrapper .loading.circled {
+    animation: rotateReverse 1s ease-in-out infinite;
+  }
+  .wrapper .loading.circled .circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: transparent;
+    border: 7px solid #ff7800;
+    border-top-color: transparent;
+    display: block;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+  }
+  .wrapper .loading.circled .circle.c2 {
+    width: 80px;
+    height: 80px;
+    animation: rotate 1.233s linear infinite;
+    border-width: 6px;
+    opacity: .6;
+  }
+  .wrapper .loading.circled .circle.c3 {
+    width: 64px;
+    height: 64px;
+    animation-delay: -4s;
+    animation: rotate 1.133s linear infinite;
+    border-width: 3px;
+    opacity: .9;
+  }
+  .wrapper .loading.circled .circle.c4 {
+    width: 50px;
+    height: 50px;
+    animation-delay: -4s;
+    animation: rotate 1.433s linear infinite;
+    border-width: 1px;
+    opacity: .8;
+  }
+  .wrapper .loading.circled.crcld2 {
+    animation: rotate 0.8s cubic-bezier(0.32, -0.7, 0.6, 1.56) infinite;
+  }
+  .wrapper .loading.circled.crcld2 .circle {
+    animation: rotateReverse -.5s linear infinite;
+  }
+  .wrapper .loading.circled.crcld3 {
+    animation: rotateReverse 1s ease-in-out infinite alternate-reverse;
+  }
+  .wrapper .loading.circled.crcld3 .circle {
+    animation: rotate 1s linear infinite;
+  }
+  .wrapper .loading.circled.crcld4 {
+    animation: none;
+  }
+  .wrapper .loading.circled.crcld4 .circle {
+    animation: rotate 1s ease-in-out infinite;
+  }
+  
+  @keyframes square {
+    0% {
+      transform: translatex(-60px) scale(0) rotate(45deg);
+    }
+    50% {
+      transform: translatex(0px) scale(1.5) rotate(135deg);
+    }
+    100% {
+      transform: translatex(60px) scale(0) rotate(225deg);
+    }
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotateReverse {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }

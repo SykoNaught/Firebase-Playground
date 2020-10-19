@@ -1,20 +1,71 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 body {
-  background: hsl(0, 0%, 32%);
-  font-family: "Roboto", sans-serif;
+  background:#2b3d5a;
+  font-family: 'Roboto', sans-serif;
   margin:0px;
+  overflow-x:hidden;
 }
 
 *{
   box-sizing:border-box
 }
 h1, h2{
-  text-align:center;
-  color:white;
   font-weight:bold;
   letter-spacing:.1em;
   text-transform:uppercase;
+}
+.img-responsive{
+  max-width:100%;
+}
+/*---Flex Stuff---*/
+.flex{
+  display:flex;
+}
+.justify-end{
+  justify-content:flex-end;
+}
+.justify-start{
+  justify-content:flex-start;
+}
+.justify-center{
+  justify-content:center;
+}
+.justify-space-between{
+  justify-content:space-between;
+}
+.justify-space-around{
+  justify-content:space-around;
+}
+.align-end{
+  align-items:flex-end;
+}
+.align-start{
+  align-items:flex-start;
+}
+.align-center{
+  align-items:center;
+}
+/*-------*/
+.pull-right{
+  float:right;
+}
+.pull-left{
+  float:left;
+}
+.text-center{
+  text-align:center;
+}
+.text-left{
+  text-align:left;
+}
+.text-right{
+  text-align:right;
+}
+
+.registration-form h1, .registration-form h2{
+  text-align:center;
+  color:white;
 }
 .header-wrap{
   background-color:white;
@@ -32,21 +83,29 @@ h1, h2{
 }
 #header .sign-out{
   color:#000;
-  align-self:flex-end;
+  width:100%;
+}
+#header .sign-out:focus{
+  outline:none;
 }
 
+/*---Breadcrumbs---*/
 .breadcrumbs{
   padding:10px 20px;
   border-top: 1px solid #dedede;
   font-size:13px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin:0px;
 }
 .breadcrumbs a{
   text-decoration:none;
   margin-right:5px
 }
+/*--------*/
 #sidebar{
   min-height: 65px;
-  background-color: #2b3d5a;
   color: #eee;
   padding: 15px;
   width: 250px;
@@ -54,16 +113,24 @@ h1, h2{
   display: block;
   position: fixed;
   box-sizing: border-box;
+  background:linear-gradient(
+    rgba(43, 61, 90, 0.65), 
+    rgba(43, 61, 90, 0.65)
+  ), url('../Images/circuitry.jpg');
+  background-size:cover;
+  background-position:center center;
 }
 .logo{
   font-weight:bold;
   font-size:1.5em;
-  display:block;
   width:100%;
   border-bottom:1px solid #cccc;
   padding-bottom:15px
 }
-
+.logo img{
+  max-width:50px;
+  margin-right:10px;
+}
 
 .sidebar-nav{
   list-style-type:none;
@@ -110,7 +177,7 @@ h1, h2{
 }
 .body-section h1{
   text-align:left;
-  color:#000;
+  color: #2b3d5a;
   margin:0px;
 }
 
@@ -125,18 +192,6 @@ h1, h2{
   text-align:left;
 }
 
-.section{
-
-
-}
-.flex-center{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  height:calc(100vh - 75px);
-}
 .form-container {
   width: 360px;
   background-color: white;
@@ -144,7 +199,21 @@ h1, h2{
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   padding: 10px;
 }
-
+.registration-form{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  height:100vh;
+  background:linear-gradient(
+    rgba(0, 0, 0, 0.75), 
+    rgba(0, 0, 0, 0.75)
+  ), url(../Images/earth-space.jpg);
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position:center center;
+}
 .register-form {
   display: flex;
   flex-direction: column;
@@ -168,16 +237,22 @@ h1, h2{
 }
 
 .form-field {
-  margin: 10px 0 10px 0;
   padding: 15px;
   font-size: 16px;
   border: 0;
+  width: 100%;
+  box-shadow: 0 2px 2px 0 rgba(60,75,100,.08), 0 3px 1px -2px rgba(60,75,100,.05), 0 1px 5px 0 rgba(60,75,100,.1);
+  transition: all 0.25s ease;
+}
+.form-field:focus{
+  outline:none;
+  box-shadow: 0 2px 2px 0 rgba(60,75,100,.14), 0 3px 1px -2px rgba(60,75,100,.12), 0 1px 5px 0 rgba(60,75,100,.2);
 }
 
-span {
+.error-span {
   font-size: 14px;
   color: red;
-  margin-bottom: 15px;
+  margin-top:10px;
 }
 
 input {
@@ -187,16 +262,6 @@ input {
 .error {
   border-style: solid;
   border: 2px solid #ffa4a4;
-}
-
-button {
-  background: #1b1e24;
-  color: white;
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: default;
 }
 
 .table {
@@ -279,6 +344,7 @@ td {
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
   border-right: 1px solid #C1C3D1;
   white-space: nowrap;
+  transition: all 0.25s ease;
 }
 
 td:last-child {
@@ -313,6 +379,7 @@ td.text-right {
   margin:15px 0px;
   text-align:center;
   color:white;
+  font-weight:300;
 }
 .floating-text a{
   color:white;
@@ -324,7 +391,7 @@ td.text-right {
   display:block;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
-  border-bottom:2px solid white;
+  border-bottom:1px solid white;
   margin-top: 3px;
 }
 .floating-text a:hover:after{
@@ -365,15 +432,150 @@ td.text-right {
   box-shadow: 0 2px 2px 0 rgba(60,75,100,.14), 0 3px 1px -2px rgba(60,75,100,.12), 0 1px 5px 0 rgba(60,75,100,.2);
 }
 
-.users-form{
-  display:flex;
+/*--Contact Table---*/
+.flex .form-field + .btn{
+  margin-left:15px;
 }
-.users-form .form-field{
+.contacts-form .form-field{
   width:100%;
 }
-.users-form button.form-field{
+.contacts-form button.form-field{
   max-width:80px;
 }
-.users-form .form-field + .form-field{
+.contacts-form .form-field + .form-field{
   margin-left:15px;
+}
+.contacts-wrapper{
+  overflow:hidden;
+}
+.contacts-wrapper td{
+  position:relative;
+}
+.contacts-wrapper tr .action-buttons{
+  position: absolute;
+  right: -100px;
+  bottom: 0;
+  transform: translateY(calc(-50% + 6px));
+  transition: all 0.25s ease;
+}
+.contacts-wrapper tr:hover .action-buttons{
+  right: 10px;
+  display:flex;
+}
+.user-actions{
+  position:relative;
+  text-align:center;
+  cursor: pointer;
+}
+.user-icon{
+  font-size: 22px;
+  text-align: center;
+  border: 2px solid #2b3d5a;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  color:#2b3d5a;
+}
+.user-actions:hover .user-dropdown{
+  opacity:1;
+  visibility:visible;
+}
+.user-dropdown{
+  background-color: white;
+  position: absolute;
+  border: 1px solid #dedede;
+  padding: 10px;
+  align-self: flex-end;
+  top: 45px;
+  opacity:0;
+  visibility:hidden;
+  transition: all 0.25s ease;
+  width:100%;
+}
+
+/*---Buttons---*/
+.modal-btn-wrap{
+  width:100%;
+}
+.btn-primary {
+  background: #2b3d5a;
+  color: white;
+  padding: 15px;
+  font-size: 16px;
+}
+.btn-secondary {
+  background: #f2f2f2;
+  color: #000;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.btn-full{
+  width:100%
+}
+.btn{
+  cursor:pointer;
+  border: 0;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.justify-end .btn + .btn{
+  margin-left:15px;
+}
+.btn:disabled {
+  cursor: not-allowed;
+}
+.btn:focus{
+  outline:none;
+}
+.btn:active{
+  outline:none;
+  box-shadow:inset 0px -5px 10px 0px rgba(0,0,0,.45);
+}
+.action-btn{
+  border: 0px;
+  padding: 5px 10px;
+  min-width:35px;
+  text-align:center;
+  margin:0 2.5px;
+  color:white;
+  border-bottom: 2px solid #9ea7af;
+}
+.delete-btn{
+  background-color:#b60000;
+} 
+.edit-btn{
+  background-color:#4c6997;
+}
+.btn-dialog-close{
+  background-color:transparent;
+  border:0px;
+  padding:10px;
+  color:#000;
+  font-size:20px;
+}
+
+.btn-dialog-close:focus{
+  box-shadow:none;
+}
+
+/*----Dashboard Widgets----*/
+
+.widget-section{
+  padding:15px;
+}
+.widget-value{
+  font-size: 45px;
+}
+.widget-title{
+  padding: 15px;
+  padding-bottom: 0px;
+}
+
+.widget-footer{
+  margin: 0 -15px;
+  margin-top:20px;
+  border-top: 1px solid #dedede;
 }

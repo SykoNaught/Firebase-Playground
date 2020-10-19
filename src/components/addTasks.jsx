@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase/firebase'
-import Header from './header'
+import Header from '../Layout/Header'
       
 
 const InputData = () => {

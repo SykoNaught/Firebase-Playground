@@ -2,8 +2,9 @@ import React, { useCallback, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 import ReactPasswordStrength from 'react-password-strength';
-import firebase from '../firebase/firebase' 
-import { AuthContext } from '../Auth'
+import firebase from '../../firebase/firebase' 
+import { AuthContext } from '../../Auth'
+import { Grid } from '@material-ui/core'
 
 
 const SignUp = ({history}) => {
@@ -115,44 +116,53 @@ const SignUp = ({history}) => {
                     }}
                 >
                     {error && <div className='error-message'>{error}</div>}
-                    <input
-                        id="email"
-                        className="form-field"
-                        type="text"
-                        placeholder="Email"
-                        name="email"
-                        value={state.email}
-                        onChange={handleInputChange} />
+                    <Grid container spacing={2} justify="space-between">
+                        <Grid container item xs={12}>
+                            <input
+                                id="email"
+                                className="form-field"
+                                type="text"
+                                placeholder="Email"
+                                name="email"
+                                value={state.email}
+                                onChange={handleInputChange} />
 
-                    {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
-                    {submitted && state.email && !validEmail && <span id="email-error2">Please enter a valid email address</span>}
+                            {submitted && !state.email && <span className="error-span">Please enter an email address</span>}
+                            {submitted && state.email && !validEmail && <span className="error-span">Please enter a valid email address</span>}
 
-                    <ReactPasswordStrength
-                        minLength={6}
-                        minScore={1}
-                        scoreWords={['weak', 'weak', 'okay', 'good', 'strong']}
-                        changeCallback={handlePassword}
-                        className="form-field"
-                        inputProps={{ name: "password", autoComplete: "off", id: "password", placeholder:"Password", value:""  }} />
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <ReactPasswordStrength
+                                minLength={6}
+                                minScore={1}
+                                scoreWords={['weak', 'weak', 'okay', 'good', 'strong']}
+                                changeCallback={handlePassword}
+                                className="form-field"
+                                inputProps={{ name: "password", autoComplete: "off", id: "password", placeholder:"Password", value:""  }} />
 
-                    {submitted && !state.password && <span id="password-error">Please enter a Password</span>}
-                    {submitted && state.password && !validPass && <span id="password-error2">Password is too weak</span>}
+                            {submitted && !state.password && <span className="error-span">Please enter a Password</span>}
+                            {submitted && state.password && !validPass && <span className="error-span">Password is too weak</span>}
 
-                    <input
-                        id="confirm-password"
-                        className="form-field"
-                        type="password"
-                        placeholder="Confirm Password"
-                        name="confirmPassword"
-                        value={state.confirmPassword}
-                        onChange={handleInputChange} />
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <input
+                                id="confirm-password"
+                                className="form-field"
+                                type="password"
+                                placeholder="Confirm Password"
+                                name="confirmPassword"
+                                value={state.confirmPassword}
+                                onChange={handleInputChange} />
 
-                    {submitted && !state.confirmPassword && <span id="confirm-password-error">Please confirm your Password</span>}
-                    {submitted && state.confirmPassword && !confirmPass && <span id="confirm-password-error2">Passwords do not match</span>}
-
-                    <button className="form-field" type="submit">
-                        Register
-                    </button>
+                            {submitted && !state.confirmPassword && <span className="error-span">Please confirm your Password</span>}
+                            {submitted && state.confirmPassword && !confirmPass && <span className="error-span">Passwords do not match</span>}
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <button className="btn btn-primary btn-full" type="submit">
+                                Register
+                            </button>
+                        </Grid>
+                    </Grid>
                 </form>
             </div>
             <div className="floating-text">

@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
-import firebase from '../firebase/firebase' 
-import { AuthContext } from '../Auth'
+import firebase from '../../firebase/firebase' 
+import { AuthContext } from '../../Auth'
+import { Grid } from '@material-ui/core'
 
 
 
@@ -69,31 +70,37 @@ const Login = ({history}) => {
 
           
           {error && <div className='error-message'>{error}</div>}
+          <Grid container spacing={2} justify="space-between">
+            <Grid container item xs={12}>
+              <input
+                id="email"
+                className="form-field"
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={state.email}
+                onChange={handleInputChange} />
 
-            <input
-              id="email"
-              className="form-field"
-              type="text"
-              placeholder="Email"
-              name="email"
-              value={state.email}
-              onChange={handleInputChange} />
+              {submitted && !state.email && <span className="error-span">Please enter an email address</span>}
+            </Grid>
+            <Grid container item xs={12}>
+              <input
+                id="password"
+                className="form-field"
+                type="password"
+                placeholder="password"
+                name="password"
+                value={state.password}
+                onChange={handleInputChange} />
 
-              {submitted && !state.email && <span id="email-error">Please enter an email address</span>}
-            <input
-              id="password"
-              className="form-field"
-              type="password"
-              placeholder="password"
-              name="password"
-              value={state.password}
-              onChange={handleInputChange} />
-
-              {submitted && !state.password && <span id="confirm-password-error">Please enter your Password</span>}
-
-            <button className="form-field" type="submit">
-              Register
-            </button>
+              {submitted && !state.password && <span className="error-span">Please enter your Password</span>}
+            </Grid>
+            <Grid container item xs={12}>
+              <button className="btn btn-primary btn-full" type="submit">
+                Register
+              </button>
+            </Grid>
+          </Grid>
           </form>
         </div>
         <div className="floating-text">
