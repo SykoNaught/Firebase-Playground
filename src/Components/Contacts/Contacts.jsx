@@ -4,16 +4,17 @@ import Header from '../Layout/Header'
 import Sidebar from '../Layout/Sidebar'
 import ContactListItem from './ContactListItem'
 import DialogBox from '../Dialog/Dialog'
-import AddContactForm from './AddContactForm'
+import ManageContactsForm from './ManageContactsForm'
 
       
 
-const Contacts = () => {
+const Contacts = (props) => {
     
     const [contacts, setContacts] = useState([])
     const [searchValue, setSearchValue] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const ref = firebase.firestore().collection("contacts")
+    
 
     function getContacts() {
         ref.onSnapshot((querySnapShot) => {
@@ -63,7 +64,7 @@ const Contacts = () => {
     return (
         
         <div className="flex-contain">       
-            <Sidebar />
+            <Sidebar collapseToggle={props.collapseToggle} />
             <div className="body-section">
                 <Header PageName="Contacts"  />
                 
@@ -91,8 +92,8 @@ const Contacts = () => {
                     openDialog = {openDialog}
                     setOpenDialog = {setOpenDialog}
                     maxWidth='md'>
-                    <AddContactForm
-                    setOpenDialog={setOpenDialog} />
+                    <ManageContactsForm
+                        setOpenDialog={setOpenDialog} />
                 </DialogBox>
             </div>
         </div>

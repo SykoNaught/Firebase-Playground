@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Assets/Styles/index.css";
 import {Switch, Route} from 'react-router-dom'
 import SignUp from './Components/Login/Signup'
@@ -11,15 +11,27 @@ import PrivateRoute from "./PrivateRoute"
 
 
 export default function App() {
+  const [collapseSidebar, setCollapseSidebar] = useState(false)
+  const toggleCollapse = () => {
+      if (collapseSidebar){
+          setCollapseSidebar(false)
+      }else{
+          setCollapseSidebar(true)
+      }
+  };
+
   return (
-    <AuthProvider>
+    <div className={collapseSidebar ? 'collapse': null} >
+      <AuthProvider>
         <Switch>
-          <PrivateRoute path="/" exact component={Dashboard} />
-          <PrivateRoute path="/contacts" exact component={Contacts} />
+          <PrivateRoute path="/" exact component={() => <Dashboard collapseToggle={toggleCollapse} />} />
+          <PrivateRoute path="/contacts" exact component={() => <Contacts collapseToggle={toggleCollapse} />} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
         </Switch>
     </AuthProvider>
+    </div>
+    
   );
   
 }

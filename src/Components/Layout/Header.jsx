@@ -12,7 +12,7 @@ const Header = (props) => {
                 <div className="page-title">
                     <h1>{props.PageName}</h1>
                 </div>
-                <div className="user-actions flex justify-center align-center">
+                <div className="user-actions flex justify-center align-center fill-height">
                     <div className="user-icon flex justify-center align-center">
                         <i className="fas fa-user"></i>
                     </div>

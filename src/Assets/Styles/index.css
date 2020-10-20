@@ -1,14 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 body {
-  background:#2b3d5a;
+  background:#f0f0f0;
   font-family: 'Roboto', sans-serif;
   margin:0px;
   overflow-x:hidden;
 }
 
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
 }
 h1, h2{
   font-weight:bold;
@@ -47,6 +47,9 @@ h1, h2{
   align-items:center;
 }
 /*-------*/
+.fill-height{
+  height:100%;
+}
 .pull-right{
   float:right;
 }
@@ -77,7 +80,7 @@ h1, h2{
   width:100%;
   height:60px;
   display:flex;
-  padding:5px 20px;
+  padding:0px 20px;
   justify-content:space-between;
   align-items: center;
 }
@@ -89,6 +92,13 @@ h1, h2{
   outline:none;
 }
 
+.sign-out{
+  background: transparent;
+  color: #eee;
+  cursor: pointer;
+  border: 0px;
+  height: 100%;
+}
 /*---Breadcrumbs---*/
 .breadcrumbs{
   padding:10px 20px;
@@ -104,37 +114,83 @@ h1, h2{
   margin-right:5px
 }
 /*--------*/
+/*---Sidebar---*/
 #sidebar{
   min-height: 65px;
   color: #eee;
-  padding: 15px;
   width: 250px;
   height: 100%;
   display: block;
   position: fixed;
   box-sizing: border-box;
-  background:linear-gradient(
-    rgba(43, 61, 90, 0.65), 
-    rgba(43, 61, 90, 0.65)
-  ), url('../Images/circuitry.jpg');
-  background-size:cover;
-  background-position:center center;
+  transition: all 0.25s ease;
+}
+#sidebar *{
+  transition: all 0.25s ease;
 }
 .logo{
   font-weight:bold;
   font-size:1.5em;
   width:100%;
-  border-bottom:1px solid #cccc;
-  padding-bottom:15px
-}
-.logo img{
-  max-width:50px;
-  margin-right:10px;
 }
 
+.sidebar-head{
+  padding: 5px 15px;
+  height: 60px;
+  background-color: #2b3d5a;
+  box-shadow: 0 3px 2px 0 rgb(0 0 0 / 14%), 
+  0 3px 1px -2px rgb(0 0 0 / 12%), 
+  0 3px 0px 0 rgb(0 0 0 / 20%);
+}
+.sidebar-body{
+  padding:20px 0px;
+  box-shadow: 3px 0px 1px 0px rgba(60,75,100,.14), 
+  3px 0px 3px -1px rgba(60,75,100,.12), 
+  3px 1px 4px 0px rgba(60,75,100,.2);
+  background: linear-gradient( rgba(43, 61, 90, 0.65),
+   rgba(43, 61, 90, 0.65) ),
+    url(/static/media/circuitry.660ae655.jpg);
+  background-size:cover;
+  background-position:center center;
+  z-index:2;
+}
+.collapse-sidebar{
+  margin-left: auto;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  background-color: #263245;
+  padding: 10px 5px;
+  border-radius: 0% 50% 50% 0%;
+  font-size: 15px;
+  top: 50%;
+  z-index:-1;
+}
+#sidebar:hover .collapse-sidebar{
+  right:-18px
+}
+.collapse-sidebar span::after{
+  content:'\f053';
+  font-family: "Font Awesome 5 Free"; font-weight: 900;
+}
+
+.collapse .collapse-sidebar span::after{
+  content:'\f054';
+}
+
+.collapse-sidebar span:last-child{
+  margin-bottom:0px;
+}
+.sidebar-icon{
+  margin-right:10px;
+}
+.sidebar-name{
+  visibility:visible;
+  opacity:1;
+}
 .sidebar-nav{
   list-style-type:none;
-  margin:20px -15px;
+  margin:0px;
   padding:0px;
 }
 .sidebar-nav li{
@@ -149,18 +205,31 @@ h1, h2{
   display:block;
 }
 
-.sidebar-nav a:hover{
+.sidebar-nav a:hover, .sidebar-nav a.is-active{
   background-color:	hsl(0, 0%, 95%, 15%);
 }
 
-.sign-out{
-    background: transparent;
-    color: #eee;
-    cursor: pointer;
-    border: 0px;
-    height: 100%;
+
+.collapse #sidebar {
+  width: 75px;
+}
+.collapse #sidebar .sidebar-icon {
+  font-size: 30px;
+  margin: 0;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+.collapse #sidebar .sidebar-name {
+  opacity:0;
+  visibility:hidden;
+  font-size:0px
 }
 
+.collapse .body-section{
+  margin-left:75px;
+}
+/*------*/
 .flex-contain{
   width:100%;
   padding:0px;
@@ -187,6 +256,7 @@ h1, h2{
 
 .body-content{
   padding:20px;
+  transition: all 0.25s ease;
 }
 
 .body-section h2{
@@ -490,23 +560,24 @@ td.text-right {
   margin-right: 10px;
   color:#2b3d5a;
 }
-.user-actions:hover .user-dropdown{
-  opacity:1;
-  visibility:visible;
-}
+
 .user-dropdown{
   background-color: white;
   position: absolute;
   border: 1px solid #dedede;
+  border-top:0px;
   padding: 10px;
   align-self: flex-end;
-  top: 45px;
+  top: 60px;
   opacity:0;
   visibility:hidden;
   transition: all 0.25s ease;
   width:100%;
 }
-
+.user-actions:hover .user-dropdown{
+  opacity:1;
+  visibility:visible;
+}
 /*---Buttons---*/
 .modal-btn-wrap{
   width:100%;

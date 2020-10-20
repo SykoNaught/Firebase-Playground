@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import firebase from '../../firebase/firebase'
 
-const AddContactForm = (props) => {
+const ManageContactsForm = (props) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -55,4 +55,4 @@ const AddContactForm = (props) => {
     )
 }
 
-export default AddContactForm
+export default ManageContactsForm

@@ -5,10 +5,10 @@ import { Grid } from '@material-ui/core';
 import ContactCount from './DashboardWidgets/ContactCount'
 
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     return (
-        <div className="flex-contain">       
-            <Sidebar />
+        <div className='flex-contain'>       
+            <Sidebar collapseToggle={props.collapseToggle} />
             <div className="body-section">
                 <Header PageName="Dashboard" />
                 
