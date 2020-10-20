@@ -149,7 +149,7 @@ h1, h2{
   3px 1px 4px 0px rgba(60,75,100,.2);
   background: linear-gradient( rgba(43, 61, 90, 0.65),
    rgba(43, 61, 90, 0.65) ),
-    url(/static/media/circuitry.660ae655.jpg);
+    url(../Images/circuitry.jpg);
   background-size:cover;
   background-position:center center;
   z-index:2;
@@ -167,7 +167,8 @@ h1, h2{
   z-index:-1;
 }
 #sidebar:hover .collapse-sidebar{
-  right:-18px
+  right:-18px;
+  z-index:0;
 }
 .collapse-sidebar span::after{
   content:'\f053';
@@ -513,6 +514,7 @@ td.text-right {
 .contacts-form .form-field{
   width:100%;
 }
+
 .contacts-form button.form-field{
   max-width:80px;
 }
@@ -544,6 +546,26 @@ td.text-right {
   display:flex;
 }
 
+.contacts-input .form-field:after{
+  content:'\f002';
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position:absolute;
+
+}
+.search-icon{
+  height: 100%;
+  display: block;
+  padding: 13px;
+  font-size: 18px;
+  background-color: #f2f2f2;
+  color: #2b3d5a;
+  z-index: 1;
+  box-shadow: 0 2px 2px 0 rgba(60,75,100,.08), 
+  0 3px 1px -2px rgba(60,75,100,.05), 
+  0 1px 5px 0 rgba(60,75,100,.1);
+}
+
 /*---User Item---*/
 .user-actions{
   position:relative;
@@ -565,7 +587,6 @@ td.text-right {
   background-color: white;
   position: absolute;
   border: 1px solid #dedede;
-  border-top:0px;
   padding: 10px;
   align-self: flex-end;
   top: 60px;
