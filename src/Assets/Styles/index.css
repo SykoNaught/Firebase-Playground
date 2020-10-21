@@ -116,7 +116,7 @@ h1, h2{
 /*--------*/
 /*---Sidebar---*/
 #sidebar{
-  min-height: 65px;
+  min-height: 60px;
   color: #eee;
   width: 250px;
   height: 100%;
@@ -124,6 +124,7 @@ h1, h2{
   position: fixed;
   box-sizing: border-box;
   transition: all 0.25s ease;
+  z-index:9;
 }
 #sidebar *{
   transition: all 0.25s ease;
@@ -132,6 +133,7 @@ h1, h2{
   font-weight:bold;
   font-size:1.5em;
   width:100%;
+  max-width:40px;
 }
 
 .sidebar-head{
@@ -153,6 +155,7 @@ h1, h2{
   background-size:cover;
   background-position:center center;
   z-index:2;
+  transition: all 0.25s ease;
 }
 .collapse-sidebar{
   margin-left: auto;
@@ -160,7 +163,7 @@ h1, h2{
   position: absolute;
   right: 0px;
   background-color: #263245;
-  padding: 10px 5px;
+  padding: 20px 6px 20px 3px;
   border-radius: 0% 50% 50% 0%;
   font-size: 15px;
   top: 50%;
@@ -213,6 +216,7 @@ h1, h2{
 
 .collapse #sidebar {
   width: 75px;
+  transition: all 0.25s ease;
 }
 .collapse #sidebar .sidebar-icon {
   font-size: 30px;
@@ -230,7 +234,59 @@ h1, h2{
 .collapse .body-section{
   margin-left:75px;
 }
+@media only screen and (max-width: 991px) {
+  #header .user-actions .user-icon{
+    margin:0px;
+  }
+  #header .user-actions .user-name{
+    width:0px;
+    height:0px; 
+    visibility:hidden;
+  }
+  #header .user-actions .user-dropdown{
+    display:none;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #sidebar, .collapse #sidebar{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    position: relative;
+    
+  }
+  .sidebar-head{
+    width:75px;
+    box-shadow:none;
+  }
+  .sidebar-body{
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    display: flex;
+    padding: 0px;
+    min-height:60px;
+    box-shadow:none;
+  }
+  .collapse-sidebar{
+    display:none;
+  }
+  .sidebar-nav{
+    display: flex;
+    height: 100%;
+  }
+  .sidebar-nav li{
+    height: 100%;
+  }
+  .sidebar-nav a{
+    padding:0px 15px;
+    height:100%;
+    display:flex;
+    align-items:center;
+  }
+}
 /*------*/
+/*---Body Section---*/
 .flex-contain{
   width:100%;
   padding:0px;
@@ -266,7 +322,21 @@ h1, h2{
   margin-bottom:20px;
   text-align:left;
 }
-
+@media only screen and (max-width: 991px) {
+  .body-section{
+    margin-left:75px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .flex-contain{
+    flex-direction:column;
+  }
+  .body-section, .collapse .body-section{
+    margin-left:0px;
+  }
+  
+}
+/*-------*/
 .form-container {
   width: 360px;
   background-color: white;
