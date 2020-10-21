@@ -77,11 +77,10 @@ const Contacts = (props) => {
                         <button className="btn btn-primary pull-right" onClick={(e) => {e.currentTarget.blur(); setOpenDialog(true)}} >Add Contact</button>
                     </div>
                     <div className="contacts-wrapper">
-                        <table className="table section">
+                        <table className="table section responsive-table">
                             <thead>
                                 <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                 </tr>
