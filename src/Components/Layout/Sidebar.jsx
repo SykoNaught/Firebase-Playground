@@ -8,7 +8,7 @@ const Sidebar = (props) => {
         <header id="sidebar">
             <div className="sidebar-head">
                 <div className="logo flex align-center fill-height">
-                     {/* <img src={Logo} className="img-responsive sidebar-icon flex align-center" alt="Logo" /> */}
+                     <img src={Logo} className="img-responsive sidebar-icon flex align-center" alt="Logo" />
                     <span className="sidebar-name flex align-center">Logo</span> 
                      
                 </div>

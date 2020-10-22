@@ -11,12 +11,12 @@ const ContactListItem = (props) => {
 
     return (
         <tr>
-            <td scope="row">{props.firstName} {props.lastName}</td>
+            <td data-scope="row">{props.firstName} {props.lastName}</td>
             <td data-title="Email">{props.email}</td>
             <td data-title="Phone">{props.phone}
                 <div className="action-buttons">
-                    <button className="btn edit-btn action-btn" onClick={() => props.contactForEdit(props.contact)}><i className="far fa-edit"></i></button>
-                    <button className="btn delete-btn action-btn" onClick={onDeleteHandler}><i className="far fa-trash-alt"></i></button>
+                    <button className="btn light edit-btn action-btn" onClick={() => props.contactForEdit(props.contact)}><i className="far fa-edit"></i></button>
+                    <button className="btn light delete-btn action-btn" onClick={onDeleteHandler}><i className="far fa-trash-alt"></i></button>
                 </div>
             </td>
         </tr>

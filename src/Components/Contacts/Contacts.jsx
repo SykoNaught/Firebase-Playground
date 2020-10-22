@@ -69,15 +69,15 @@ const Contacts = (props) => {
                 <Header PageName="Contacts"  />
                 
                 <div className="body-content">
-                    <div className="contacts-input section flex justify-space-between align-center">   
+                    <div className="contacts-input flex justify-space-between align-center">   
                         <div className="search-icon">
                             <i className="fas fa-search"></i>
                         </div>
                         <input type="text" name="First Name" className="form-field" id="search-contacts" placeholder="Search Contacts" value={searchValue} autoComplete="off" onChange={e => setSearchValue(e.currentTarget.value)} />
-                        <button className="btn btn-primary pull-right" onClick={(e) => {e.currentTarget.blur(); setOpenDialog(true)}} >Add Contact</button>
+                        <button className="btn btn-primary light pull-right" onClick={(e) => {e.currentTarget.blur(); setOpenDialog(true)}} >Add Contact</button>
                     </div>
                     <div className="contacts-wrapper">
-                        <table className="table section responsive-table">
+                        <table className="table responsive-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>

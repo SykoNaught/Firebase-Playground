@@ -14,7 +14,7 @@ const Dashboard = (props) => {
                 
                 <div className="body-content">
                 <Grid container spacing={2} justify="space-between">
-                    <Grid container item xs={3}>
+                    <Grid container item lg={3} sm={4} xs={6}>
                         <ContactCount />
                     </Grid>
                 </Grid>

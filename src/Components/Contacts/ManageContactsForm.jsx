@@ -45,8 +45,8 @@ const ManageContactsForm = (props) => {
                 </Grid>
                 <Grid container item xs={12}>
                     <div className="modal-btn-wrap flex justify-end">
-                        <button type="button" className="btn btn-secondary pull-right" onClick={() => {resetForm(); props.setOpenDialog(false)}}>Cancel</button>
-                        <button type="submit" className="btn btn-primary pull-right" >Submit</button>
+                        <button type="button" className="btn btn-secondary light pull-right" onClick={() => {resetForm(); props.setOpenDialog(false)}}>Cancel</button>
+                        <button type="submit" className="btn btn-primary light pull-right" >Submit</button>
                     </div>
                 </Grid>
             </Grid>
