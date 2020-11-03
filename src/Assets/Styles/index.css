@@ -758,9 +758,6 @@ input {
   padding: 15px;
   font-size: 16px;
 }
-.btn-tertiary{
-
-}
 
 .btn-full{
   width:100%
@@ -834,4 +831,49 @@ input {
   margin: 0 -15px;
   margin-top:20px;
   border-top: 1px solid #dedede;
+}
+
+/*----Confirm Alerts----*/
+.react-confirm-alert-body h1{
+  font-family:inherit !important;
+  font-size:1.5em !important;
+}
+.react-confirm-alert-body{
+  text-align:center !important;
+}
+
+.react-confirm-alert-button-group{
+  justify-content:center !important;
+}
+.react-confirm-alert-button-group button{
+  min-width:35px;
+  text-align:center;
+  margin:0 2.5px;
+  color:white !important;
+  border-bottom: 3px solid !important;
+  font-size: 14px !important;
+}
+
+.react-confirm-alert-button-group button:first-child{
+  background-color:#ce6c6c;
+  border-color:#a36d6d !important;
+} 
+.react-confirm-alert-button-group button:last-child{
+  background-color:#adbbd1;
+  border-color:#8a98af !important;
+}
+
+.react-confirm-alert-button-group button:active{
+  box-shadow:inset 0px -5px 10px 0px rgba(0,0,0,.15) !important;
+} 
+
+.react-confirm-alert-overlay{
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.react-confirm-alert-body{
+  box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2), 
+  0px 24px 38px 3px rgba(0,0,0,0.14), 
+  0px 9px 46px 8px rgba(0,0,0,0.12) !important;
+  border-radius: 3px !important;
 }

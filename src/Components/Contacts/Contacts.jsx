@@ -47,17 +47,27 @@ const Contacts = (props) => {
     let contactList = (
         <tbody>
             {search(contacts).map((contact, i) => {
-               return <ContactListItem
-                firstName={contact.firstName}
-                lastName={contact.lastName}
-                email={contact.email}
-                phone={contact.phone}
-                id={contact.id}
-                editClick={setOpenDialog}
-                contact={contact}
-                contactForEdit={getContactById}
-                key={i} />
+                if(contacts.length){
+                    return <ContactListItem
+                        firstName={contact.firstName}
+                        lastName={contact.lastName}
+                        email={contact.email}
+                        phone={contact.phone}
+                        id={contact.id}
+                        editClick={setOpenDialog}
+                        contact={contact}
+                        contactForEdit={getContactById}
+                        key={i} />
+                    
+                }else{
+                    return(
+                        <div>
+                            There are currently no Contacts!
+                        </div>
+                    )
+                }
             })}
+            
         </tbody>
     )
     

@@ -1,12 +1,27 @@
 import React from 'react'
 import firebase from '../../firebase/firebase'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 const ContactListItem = (props) => {
 
     const ref =  firebase.firestore().collection("contacts")
 
     const onDeleteHandler = () => {
-        ref.doc(props.id).delete();
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure you want to do delete this user?',
+            buttons: [
+              {
+                label: 'Delete',
+                onClick: () => ref.doc(props.id).delete()
+              },
+              {
+                label: 'Cancel'
+              }
+            ]
+          });
+        
     }
 
     return (
