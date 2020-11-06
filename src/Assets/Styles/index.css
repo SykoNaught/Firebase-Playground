@@ -65,7 +65,12 @@ h1, h2{
 .text-right{
   text-align:right;
 }
-
+.show-mobile{
+  display:none !important;
+}
+.hide-mobile{
+  display:block;
+}
 .registration-form h1, .registration-form h2{
   text-align:center;
   color:white;
@@ -121,8 +126,8 @@ h1, h2{
   max-width: 250px;
   min-width: 60px;
   width:100%;
-  min-height:100vh;
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   box-sizing: border-box;
   transition: all 0.25s ease;
@@ -252,6 +257,12 @@ h1, h2{
   }
 }
 @media only screen and (max-width: 767px) {
+  .show-mobile{
+    display:block !important;
+  }
+  .hide-mobile{
+    display:none !important;
+  }
   #sidebar, .collapse #sidebar{
     width: 100%;
     max-width:100%;
@@ -259,8 +270,9 @@ h1, h2{
     max-height: 60px;
     min-height:60px;
     display: flex;
-    position: absolute;
-    bottom:0px;
+    flex-direction:row;
+    position: fixed;
+    bottom: 0px;
   }
   .sidebar-head{
     max-width:75px;
@@ -460,7 +472,7 @@ input {
   font-size: 18px;
   font-weight: 100;
   padding: 10px 20px;
-  text-align: center;
+  text-align: left;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
   white-space: nowrap;
@@ -707,7 +719,26 @@ input {
 .contacts-input .form-field:focus{
   opacity:1;
 }
+@media (max-width:768px){
+  .contacts-wrapper tr .action-buttons{
+    position: relative;
+    right: 0;
+    transform: none;
+  }
 
+  .contacts-wrapper tr:hover .action-buttons{
+    position: relative;
+    right: unset;
+    transform: none;
+  }
+  .responsive-table tbody td[data-scope="row"]{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+  }
+}
 /*---User Item---*/
 .user-actions{
   position:relative;

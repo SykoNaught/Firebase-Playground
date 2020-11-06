@@ -26,10 +26,16 @@ const ContactListItem = (props) => {
 
     return (
         <tr>
-            <td data-scope="row">{props.firstName} {props.lastName}</td>
+            <td data-scope="row">
+              <div className="action-buttons show-mobile">
+                  <button className="btn light edit-btn action-btn" onClick={() => props.contactForEdit(props.contact)}><i className="far fa-edit"></i></button>
+                  <button className="btn light delete-btn action-btn" onClick={onDeleteHandler}><i className="far fa-trash-alt"></i></button>
+              </div>
+              {props.firstName} {props.lastName}
+            </td>
             <td data-title="Email">{props.email}</td>
             <td data-title="Phone">{props.phone}
-                <div className="action-buttons">
+                <div className="action-buttons hide-mobile">
                     <button className="btn light edit-btn action-btn" onClick={() => props.contactForEdit(props.contact)}><i className="far fa-edit"></i></button>
                     <button className="btn light delete-btn action-btn" onClick={onDeleteHandler}><i className="far fa-trash-alt"></i></button>
                 </div>
