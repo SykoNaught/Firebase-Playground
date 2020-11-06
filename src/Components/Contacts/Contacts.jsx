@@ -33,42 +33,28 @@ const Contacts = (props) => {
         getContacts()
     }, [])
 
-    function search(contacts) {
-        let query = searchValue.toLowerCase()
-        return contacts.filter(
-            (contact) => 
-            contact.firstName.toLowerCase().indexOf(query) > -1 ||
-            contact.lastName.toLowerCase().indexOf(query) > -1 ||
-            contact.email.toLowerCase().indexOf(query) > -1 ||
-            contact.phone.toLowerCase().indexOf(query) > -1 
-        )
-    }
+    const search =  contacts.filter(
+        contact => 
+            contact.firstName.toLowerCase().indexOf(searchValue) > -1 ||
+            contact.lastName.toLowerCase().indexOf(searchValue) > -1 ||
+            contact.email.toLowerCase().indexOf(searchValue) > -1 ||
+            contact.phone.toLowerCase().indexOf(searchValue) > -1 
+    )
+    
 
     let contactList = (
-        <tbody>
-            {search(contacts).map((contact, i) => {
-                if(contacts.length){
-                    return <ContactListItem
-                        firstName={contact.firstName}
-                        lastName={contact.lastName}
-                        email={contact.email}
-                        phone={contact.phone}
-                        id={contact.id}
-                        editClick={setOpenDialog}
-                        contact={contact}
-                        contactForEdit={getContactById}
-                        key={i} />
-                    
-                }else{
-                    return(
-                        <div>
-                            There are currently no Contacts!
-                        </div>
-                    )
-                }
-            })}
-            
-        </tbody>
+        search.map((contact, i) => {
+            return <ContactListItem
+                firstName={contact.firstName}
+                lastName={contact.lastName}
+                email={contact.email}
+                phone={contact.phone}
+                id={contact.id}
+                editClick={setOpenDialog}
+                contact={contact}
+                contactForEdit={getContactById}
+                key={contact.id} />
+        })
     )
     
     return (
@@ -83,7 +69,7 @@ const Contacts = (props) => {
                         <div className="search-icon">
                             <i className="fas fa-search"></i>
                         </div>
-                        <input type="text" name="First Name" className="form-field" id="search-contacts" placeholder="Search Contacts" value={searchValue} autoComplete="off" onChange={e => setSearchValue(e.currentTarget.value)} />
+                        <input type="text" name="Search" className="form-field" id="search-contacts" placeholder="Search Contacts" value={searchValue} autoComplete="off" onChange={e => setSearchValue(e.currentTarget.value.toLowerCase())} />
                         <button className="btn btn-primary light pull-right" onClick={(e) => {e.currentTarget.blur(); setOpenDialog(true)}} >Add Contact</button>
                     </div>
                     <div className="contacts-wrapper">
@@ -95,7 +81,23 @@ const Contacts = (props) => {
                                     <th>Phone</th>
                                 </tr>
                             </thead>
-                            {contactList}
+                            <tbody>
+                                {
+                                    search.length > 0 ? (contactList):(
+                                        <tr>
+                                            <td className="no-results" colSpan="3">
+                                            {
+                                                contacts.length > 0 ? (
+                                                    <span>No results for {searchValue}</span>
+                                                ):(
+                                                    <span>You currently have no contacts</span>
+                                                )
+                                            }           
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
                         </table>
                     </div>
                 

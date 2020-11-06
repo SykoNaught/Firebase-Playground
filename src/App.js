@@ -18,7 +18,7 @@ export default function App() {
       if (collapseSidebar){
         setCollapseSidebar(false)
       }else{
-          setCollapseSidebar(true)
+        setCollapseSidebar(true)
       }
   };
   useEffect(() => {

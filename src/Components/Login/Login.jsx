@@ -97,7 +97,7 @@ const Login = ({history}) => {
             </Grid>
             <Grid container item xs={12}>
               <button className="btn btn-primary btn-full" type="submit">
-                Register
+                Sign In
               </button>
             </Grid>
           </Grid>
