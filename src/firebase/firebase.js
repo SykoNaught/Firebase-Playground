@@ -4,13 +4,12 @@ import "firebase/auth"
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyBRvuJPwm4msTzUrX0vE-4XxQnng73eGIY",
-    authDomain: "playground-d763c.firebaseapp.com",
-    databaseURL: "https://playground-d763c.firebaseio.com",
-    projectId: "playground-d763c",
-    storageBucket: "playground-d763c.appspot.com",
-    messagingSenderId: "549966896469",
-    appId: "1:549966896469:web:5aa33d1488e54587c523dc"
+    apiKey: "AIzaSyCqnFX9TxTMhpGzE1VzALMNJX0nj1zaYqI",
+    authDomain: "cryptolio-c5b48.firebaseapp.com",
+    projectId: "cryptolio-c5b48",
+    storageBucket: "cryptolio-c5b48.appspot.com",
+    messagingSenderId: "955536732408",
+    appId: "1:955536732408:web:b7573e5e1d245b3f000b0d"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
