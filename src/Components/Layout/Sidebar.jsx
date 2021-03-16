@@ -23,6 +23,12 @@ const Sidebar = (props) => {
                             </NavLink>
                         </li>
                         <li>
+                            <NavLink activeClassName='is-active' to='/scw-calculator'>
+                                <span className="sidebar-icon"><i className="fas fa-address-card"></i></span>
+                                <span className="sidebar-name">SCW Calculator</span>
+                            </NavLink>
+                        </li>
+                        <li>
                             <NavLink activeClassName='is-active' to='/contacts'>
                                 <span className="sidebar-icon"><i className="fas fa-address-card"></i></span>
                                 <span className="sidebar-name">Contacts</span>

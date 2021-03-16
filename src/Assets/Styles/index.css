@@ -412,10 +412,14 @@ h1, h2{
   margin-top:10px;
 }
 
-input {
+input, select {
   background: #f2f2f2;
 }
-
+select{
+  width:100%;
+  max-width:350px;
+  text-align:center;
+}
 .error {
   border-style: solid;
   border: 2px solid #ffa4a4;
