@@ -750,14 +750,14 @@ select{
   cursor: pointer;
 }
 .user-icon{
-  font-size: 22px;
+  font-size: 14px;
   text-align: center;
   border: 2px solid #2b3d5a;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 29px;
   margin-right: 10px;
-  color:#2b3d5a;
+  color: #2b3d5a;
 }
 
 .user-dropdown{

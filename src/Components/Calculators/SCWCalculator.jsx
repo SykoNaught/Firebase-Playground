@@ -14,6 +14,7 @@ const SCWCalculator = (props) => {
     const [when, setWhen] = useState()
     const [amount, setAmount] = useState()
     const [todayPrice, setTodayPrice] = useState()
+    const [historyPrice, setHistoryPrice] = useState()
     const exclusionList = ['-aud', '-aug', '-basic', '-bit', '-btc', '-cash', '-chain', '-dao', '-eth', '01', '0cash', '0chain', '0xcert', '1000x', '100x', '10x', '13', '1ai', '1ir', '2-2', '2a', '2x', '300', '360', '3x', '5x', '7', '8', 'aaa', 'aave-', 'abc', 'add', 'alliance', 'alpha', 'alt', 'animal', 'anime', 'anon', 'ape', 'apo', 'aqua', 'asia', 'atl', 'aud-', 'aus', 'ball', 'bank', 'base', 'basis', 'battle', 'bear', 'bee', 'bell', 'berry', 'beth', 'bett', 'bever', 'beyond', 'bf', 'bg', 'big', 'bill', 'binance-', 'bio', 'bir', 'bit-', 'bit_', 'bita', 'bitb', 'bitca', 'bitce', 'bitch', 'bitci', 'bitcl', 'bitcn', 'bitcoe', 'bitcof', 'bitcoii', 'bitcoin-', 'bitcoinb', 'bitcoing', 'bitcoinh', 'bitcoinm', 'bitcoino', 'bitcoinr', 'bitcoins', 'bitcoinu', 'bitcoinv', 'bitcoinx', 'bitcoinz', 'bitcoiv', 'bitcom', 'bitcon', 'bitcor', 'bitcr', 'bitcu', 'bitd', 'bite', 'bitf', 'bitg', 'bith', 'biti', 'bitj', 'bitk', 'bitl', 'bitm', 'bitn', 'bito', 'bitp', 'bitq', 'bitr', 'bits', 'bitt', 'bitu', 'bitv', 'bitw', 'bitx', 'bity', 'bitz', 'bix', 'biz', 'bla', 'black', 'bli', 'bliq', 'block', 'bloo', 'blue', 'bol', 'bonus', 'boo', 'bra', 'brap', 'bro', 'bs', 'btecoin', 'btc-', 'bull', 'business', 'buy', 'buz', 'candy', 'canna', 'capital', 'cash', 'cash-', 'chain-', 'chains', 'chari', 'chee', 'chic', 'chip', 'click', 'coin-', 'coins', 'compound', 'compound-0x', 'corn', 'cov', 'cow', 'cp', 'crossover', 'crypt', 'crypto', 'cryst', 'cyb', 'dai', 'dao', 'dapp', 'dark', 'darw', 'dash-', 'dav', 'deb', 'decentralized', 'deutsche', 'dex', 'diam', 'digi', 'digital', 'dm', 'dollar', 'dragon', 'dream', 'elastic', 'electr', 'emark', 'emoji', 'eth-', 'eth2', 'ethar', 'ethb', 'ethea', 'ether-', 'etherem', 'etheretherb', 'ethereum-', 'ethereumai', 'ethereumsc', 'ethereumx', 'etherinc', 'etherisc', 'ethero', 'etherp', 'ethers', 'etherz', 'ethi', 'ethl', 'etho', 'ethp', 'ethv', 'euro', 'ever', 'evi', 'exo', 'expir', 'fair', 'faith', 'fam', 'fi', 'finance', 'finit', 'future', 'gbp', 'gem', 'global', 'hodl', 'hold', 'inch', 'index', 'jackpot', 'japan', 'jit', 'jpa', 'jpy', 'long', 'market', 'mill', 'mine', 'mining', 'monero', 'money', 'moon', 'pop', 'pump', 'ratio', 'sai', 'sell', 'ships', 'short', 'swap', 'uni', 'usd', 'v1', 'venus', 'weed', 'whale', 'wrapped', 'yearn-classic', 'yearn-ecosystem', 'yearn-ethereum', 'yearn-finance-', 'yearn4', 'yf', 'yield', 'zet', 'zeu', 'zg', 'zh', 'zi', 'zj', 'zl', 'zo', 'zp', 'zr', 'zt', 'zu', 'zy', 'half'];
 
     function getCurrentDate(separator=''){
@@ -52,25 +53,43 @@ const SCWCalculator = (props) => {
         })
     }
     const onWhatChange = (e, value) => {
-        setWhat(value.name)
-        getTodayPrice(value.id)
+        if(value != null){
+            setWhat(value)
+            getTodayPrice(value.id)
+            tryCalc(value.id, when, amount)
+        }else{
+            setWhat('')
+            setTodayPrice('')
+        }
     }
-    const onWhenChange = (e, value) => {
+    const onWhenChange = e => {
         e.persist()
-        setWhen(e.target.value)
+        let v = e.target.value
+        let formattedV = dateFormatter(v, 'mdy')
+        setWhen(formattedV)
+
+        tryCalc(what, formattedV, amount)
     }
     const onAmountChange = (e, value) => {
         setAmount(value)
+        tryCalc(what, when, value)
     }
-    var formatter = new Intl.NumberFormat('en-US', {
+    const moneyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
-        
-        // These options are needed to round to whole numbers if that's what you want.
-        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        currency: 'USD'
     });
-  
+    const dateFormatter = (date, o) =>{
+        const items = date.split('-');
+        let formattedDate = ''
+
+        if(o === 'dmy'){
+            formattedDate = `${items[2]}-${items[1]}-${items[0]}`
+        }else{
+            formattedDate = `${items[1]}-${items[2]}-${items[0]}`
+        }
+        console.log(formattedDate)
+        return formattedDate
+    }
     function getTodayPrice(id) {
         let url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + id +'&vs_currencies=usd'
         try {
@@ -83,14 +102,39 @@ const SCWCalculator = (props) => {
                 setTodayPrice(price)
             })
         } catch (e) {
-            console.log('------------------')
+            console.log('----------Error---------')
             console.log(e)
             return
         }
     }
+    function getHistoryPrice(id, w) {
+        const formattedDate = dateFormatter(w, 'dmy')
+        let url = 'https://api.coingecko.com/api/v3/coins/' + id + '/history?date=' + formattedDate + '&localization=false';
+        try {
+            fetch(url)
+            .then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data)
+            })
+        } catch (e) {
+            console.log('----------Error---------')
+            console.log(e)
+            return
+        }
+    }
+
+    function tryCalc(tryWhat, tryWhen, tryAmount) {
+
+        let coin = []
+        if (tryWhat && tryWhen && tryWhat != null){
+
+            getHistoryPrice(tryWhat.id, tryWhen)
+            console.log(tryWhat)
+        }
+    }
     useEffect(() => {
         getCoinList()
-        setWhat(coinList[0])
     }, [])
 
     let optionItems = coinList;
@@ -121,7 +165,9 @@ const SCWCalculator = (props) => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                defaultValue={getCurrentDate('-')}
+                                inputProps={{
+                                    max: getCurrentDate('-')
+                                }}
                                 onChange={onWhenChange}
                             />
                         </Grid>
@@ -137,9 +183,9 @@ const SCWCalculator = (props) => {
                             />
                         </Grid>
                         <Grid container item xs={12}>
-                                {what ?
+                                {what && what !== undefined ?
                                     <div>
-                                        The price of {what} today is: 
+                                        The price of {what.name} today is: 
                                         {todayPrice ?
                                             <span>
                                                 &nbsp; ${todayPrice}
@@ -155,7 +201,7 @@ const SCWCalculator = (props) => {
                         <Grid container item xs={12}>
                             {what && when ?
                                 <div>
-                                    The price of {what} on {when} was: 
+                                    The price of {what.name} on {when} was: 
                                 </div>
                                 :
                                 null
