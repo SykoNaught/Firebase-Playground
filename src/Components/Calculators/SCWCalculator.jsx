@@ -10,11 +10,13 @@ import Sidebar from '../Layout/Sidebar'
 const SCWCalculator = (props) => {
     
     const [coinList, setCoinList] = useState([])
-    const [what, setWhat] = useState()
-    const [when, setWhen] = useState()
-    const [amount, setAmount] = useState()
+    const [what, setWhat] = useState('')
+    const [when, setWhen] = useState('')
+    const [amount, setAmount] = useState('')
     const [todayPrice, setTodayPrice] = useState()
     const [historyPrice, setHistoryPrice] = useState()
+    const [coinCount, setCoinCount] = useState()
+    const [couldaAmount, setCouldaAmount] = useState()
     const exclusionList = ['-aud', '-aug', '-basic', '-bit', '-btc', '-cash', '-chain', '-dao', '-eth', '01', '0cash', '0chain', '0xcert', '1000x', '100x', '10x', '13', '1ai', '1ir', '2-2', '2a', '2x', '300', '360', '3x', '5x', '7', '8', 'aaa', 'aave-', 'abc', 'add', 'alliance', 'alpha', 'alt', 'animal', 'anime', 'anon', 'ape', 'apo', 'aqua', 'asia', 'atl', 'aud-', 'aus', 'ball', 'bank', 'base', 'basis', 'battle', 'bear', 'bee', 'bell', 'berry', 'beth', 'bett', 'bever', 'beyond', 'bf', 'bg', 'big', 'bill', 'binance-', 'bio', 'bir', 'bit-', 'bit_', 'bita', 'bitb', 'bitca', 'bitce', 'bitch', 'bitci', 'bitcl', 'bitcn', 'bitcoe', 'bitcof', 'bitcoii', 'bitcoin-', 'bitcoinb', 'bitcoing', 'bitcoinh', 'bitcoinm', 'bitcoino', 'bitcoinr', 'bitcoins', 'bitcoinu', 'bitcoinv', 'bitcoinx', 'bitcoinz', 'bitcoiv', 'bitcom', 'bitcon', 'bitcor', 'bitcr', 'bitcu', 'bitd', 'bite', 'bitf', 'bitg', 'bith', 'biti', 'bitj', 'bitk', 'bitl', 'bitm', 'bitn', 'bito', 'bitp', 'bitq', 'bitr', 'bits', 'bitt', 'bitu', 'bitv', 'bitw', 'bitx', 'bity', 'bitz', 'bix', 'biz', 'bla', 'black', 'bli', 'bliq', 'block', 'bloo', 'blue', 'bol', 'bonus', 'boo', 'bra', 'brap', 'bro', 'bs', 'btecoin', 'btc-', 'bull', 'business', 'buy', 'buz', 'candy', 'canna', 'capital', 'cash', 'cash-', 'chain-', 'chains', 'chari', 'chee', 'chic', 'chip', 'click', 'coin-', 'coins', 'compound', 'compound-0x', 'corn', 'cov', 'cow', 'cp', 'crossover', 'crypt', 'crypto', 'cryst', 'cyb', 'dai', 'dao', 'dapp', 'dark', 'darw', 'dash-', 'dav', 'deb', 'decentralized', 'deutsche', 'dex', 'diam', 'digi', 'digital', 'dm', 'dollar', 'dragon', 'dream', 'elastic', 'electr', 'emark', 'emoji', 'eth-', 'eth2', 'ethar', 'ethb', 'ethea', 'ether-', 'etherem', 'etheretherb', 'ethereum-', 'ethereumai', 'ethereumsc', 'ethereumx', 'etherinc', 'etherisc', 'ethero', 'etherp', 'ethers', 'etherz', 'ethi', 'ethl', 'etho', 'ethp', 'ethv', 'euro', 'ever', 'evi', 'exo', 'expir', 'fair', 'faith', 'fam', 'fi', 'finance', 'finit', 'future', 'gbp', 'gem', 'global', 'hodl', 'hold', 'inch', 'index', 'jackpot', 'japan', 'jit', 'jpa', 'jpy', 'long', 'market', 'mill', 'mine', 'mining', 'monero', 'money', 'moon', 'pop', 'pump', 'ratio', 'sai', 'sell', 'ships', 'short', 'swap', 'uni', 'usd', 'v1', 'venus', 'weed', 'whale', 'wrapped', 'yearn-classic', 'yearn-ecosystem', 'yearn-ethereum', 'yearn-finance-', 'yearn4', 'yf', 'yield', 'zet', 'zeu', 'zg', 'zh', 'zi', 'zj', 'zl', 'zo', 'zp', 'zr', 'zt', 'zu', 'zy', 'half'];
 
     function getCurrentDate(separator=''){
@@ -54,9 +56,12 @@ const SCWCalculator = (props) => {
     }
     const onWhatChange = (e, value) => {
         if(value != null){
+            console.log(value)
             setWhat(value)
-            getTodayPrice(value.id)
-            tryCalc(value.id, when, amount)
+            
+            getTodayPrice(value)
+            
+            tryCalc(value, when, amount)
         }else{
             setWhat('')
             setTodayPrice('')
@@ -81,25 +86,31 @@ const SCWCalculator = (props) => {
     const dateFormatter = (date, o) =>{
         const items = date.split('-');
         let formattedDate = ''
-
+        console.log(date)
+        console.log(items)
         if(o === 'dmy'){
-            formattedDate = `${items[2]}-${items[1]}-${items[0]}`
+            formattedDate = `${items[1]}-${items[0]}-${items[2]}`
         }else{
             formattedDate = `${items[1]}-${items[2]}-${items[0]}`
         }
         console.log(formattedDate)
         return formattedDate
     }
-    function getTodayPrice(id) {
-        let url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + id +'&vs_currencies=usd'
+    function getTodayPrice(coin) {
+        const coinID = coin.id
+        let url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + coinID +'&vs_currencies=usd'
         try {
             fetch(url)
             .then(response => {
                 return response.json()
             }).then(data => {
-                let price = data[id].usd
-                
-                setTodayPrice(price)
+                const price = data[coinID].usd
+                if (price >= 1){
+                    const formattedPrice = moneyFormatter.format(price)
+                    setTodayPrice(formattedPrice)
+                }else{
+                    setTodayPrice(price.toFixed(5))
+                }
             })
         } catch (e) {
             console.log('----------Error---------')
@@ -109,13 +120,27 @@ const SCWCalculator = (props) => {
     }
     function getHistoryPrice(id, w) {
         const formattedDate = dateFormatter(w, 'dmy')
-        let url = 'https://api.coingecko.com/api/v3/coins/' + id + '/history?date=' + formattedDate + '&localization=false';
+        let url = 'https://api.coingecko.com/api/v3/coins/' + id + '/history?date=' + formattedDate + '&localization=false'
+        console.log(url)
         try {
             fetch(url)
             .then(response => {
                 return response.json()
             }).then(data => {
-                console.log(data)
+                try{
+                    const histPrice = data.market_data.current_price.usd
+                    console.log(histPrice)
+                    if (histPrice >= 1){
+                        const formattedHistPrice = moneyFormatter.format(histPrice)
+                        setHistoryPrice(formattedHistPrice)
+                    }else{
+                        setHistoryPrice(histPrice.toFixed(5))
+                    }
+                } catch (e) {
+                    console.log('----------Error---------')
+                    console.log(e)
+                    return
+                }
             })
         } catch (e) {
             console.log('----------Error---------')
@@ -128,9 +153,29 @@ const SCWCalculator = (props) => {
 
         let coin = []
         if (tryWhat && tryWhen && tryWhat != null){
-
             getHistoryPrice(tryWhat.id, tryWhen)
-            console.log(tryWhat)
+        }
+
+        if (historyPrice && tryAmount){
+            const numCoins = tryAmount / historyPrice
+            const intTodayPrice = Number(todayPrice.replace(/[^0-9.-]+/g,""));
+            const finalAmount = numCoins * intTodayPrice
+            console.log('Num: ' + numCoins)
+            console.log('Today: ' + todayPrice)
+            console.log('Final: ' + finalAmount)
+            console.log('Int Today: ' + intTodayPrice)
+            setCoinCount(numCoins)
+
+            if (intTodayPrice >= 1){
+                const formattedFinal = moneyFormatter.format(finalAmount)
+                setCouldaAmount(formattedFinal)
+            }else{
+                setCouldaAmount(finalAmount)
+            }
+            
+        }else{
+            setCoinCount()
+            setCouldaAmount()
         }
     }
     useEffect(() => {
@@ -188,7 +233,7 @@ const SCWCalculator = (props) => {
                                         The price of {what.name} today is: 
                                         {todayPrice ?
                                             <span>
-                                                &nbsp; ${todayPrice}
+                                                &nbsp; {todayPrice}
                                             </span>
                                             :
                                             null
@@ -199,9 +244,16 @@ const SCWCalculator = (props) => {
                                 } 
                         </Grid>
                         <Grid container item xs={12}>
-                            {what && when ?
+                            {what && when  ?
                                 <div>
                                     The price of {what.name} on {when} was: 
+                                    {historyPrice  ?
+                                        <span>
+                                            &nbsp;  {historyPrice}
+                                        </span>
+                                        :
+                                        null
+                                    }
                                 </div>
                                 :
                                 null
@@ -211,12 +263,46 @@ const SCWCalculator = (props) => {
                         <Grid container item xs={12}>
                             {amount ?
                                 <div>
-                                    Your investment of ${amount} Could'a been worth 
+                                    Your investment of {amount} Could'a been worth 
+                                    {couldaAmount ?
+                                        <span>
+                                            &nbsp; {couldaAmount}
+                                        </span>
+                                        :
+                                        null
+                                    }
+                                </div>
+                                :
+                                null
+                            }
+                            
+                        </Grid>
+                        <Grid container item xs={12}>
+                            {coinCount ?
+                                <div>
+                                    Number of Coins: {coinCount}
                                 </div>
                                 :
                                 null
                             }
                         </Grid>
+                        {/* <Grid container item xs={12}>
+                            {couldaAmount ?
+                                <div>
+                                    {couldaAmount > amount ?
+                                        <div>
+                                            Shoulda!
+                                        </div>
+                                        :
+                                        <div>
+                                            Glad Ya Didn't!
+                                        </div>
+                                    }
+                                </div>
+                            : null
+                                
+                            }
+                        </Grid> */}
                     </Grid>
                 </form>
                 </div>
