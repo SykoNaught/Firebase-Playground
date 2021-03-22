@@ -12,6 +12,8 @@ const SCWCalculator = (props) => {
     const [coinList, setCoinList] = useState([])
     const [what, setWhat] = useState('')
     const [when, setWhen] = useState('')
+    const [displayDate, setDisplayDate] = useState('')
+    const [apiDate, setApiDate] = useState('')
     const [amount, setAmount] = useState('')
     const [todayPrice, setTodayPrice] = useState()
     const [historyPrice, setHistoryPrice] = useState()
@@ -52,13 +54,16 @@ const SCWCalculator = (props) => {
             });
             
             setCoinList(fullCoinList)
+            
         })
     }
     const onWhatChange = (e, value) => {
         if(value != null){
             console.log(value)
             setWhat(value)
-            
+            if (when){
+                getHistoryPrice(value.id, apiDate)
+            }
             getTodayPrice(value)
             
             tryCalc(value, when, amount)
@@ -70,30 +75,50 @@ const SCWCalculator = (props) => {
     const onWhenChange = e => {
         e.persist()
         let v = e.target.value
-        let formattedV = dateFormatter(v, 'mdy')
-        setWhen(formattedV)
+        let displayDateFormat = dateFormatter(v, 'display')
+        let apiDateFormat = dateFormatter(v, 'api')
 
-        tryCalc(what, formattedV, amount)
+        console.log('v: ' + v)
+        console.log('display: ' + displayDate)
+        console.log('api: ' + apiDate)
+
+        if (v){
+            setWhen(v)
+            setDisplayDate(displayDateFormat)
+            setApiDate(apiDateFormat)
+            
+            if (what && v){
+                getHistoryPrice(what.id, apiDateFormat)
+            }
+            tryCalc(what, displayDate, amount)
+        }else{
+            setWhen()
+            setDisplayDate()
+            setApiDate()
+        }
+        console.log(coinList)
     }
     const onAmountChange = (e, value) => {
         setAmount(value)
         tryCalc(what, when, value)
+        console.log('----------when----------')
+        console.log(when)
+        console.log('----------/when---------')
     }
     const moneyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
     });
-    const dateFormatter = (date, o) =>{
+    const dateFormatter = (date, format) =>{
         const items = date.split('-');
         let formattedDate = ''
-        console.log(date)
-        console.log(items)
-        if(o === 'dmy'){
-            formattedDate = `${items[1]}-${items[0]}-${items[2]}`
-        }else{
+        if(format === 'api'){
+            formattedDate = `${items[2]}-${items[1]}-${items[0]}`
+        }else if (format === 'display'){
             formattedDate = `${items[1]}-${items[2]}-${items[0]}`
+        }else{
+            formattedDate = date;
         }
-        console.log(formattedDate)
         return formattedDate
     }
     function getTodayPrice(coin) {
@@ -105,12 +130,8 @@ const SCWCalculator = (props) => {
                 return response.json()
             }).then(data => {
                 const price = data[coinID].usd
-                if (price >= 1){
-                    const formattedPrice = moneyFormatter.format(price)
-                    setTodayPrice(formattedPrice)
-                }else{
-                    setTodayPrice(price.toFixed(5))
-                }
+                setTodayPrice({formatted: moneyFormatter.format(price), unformatted: price.toFixed(5)})
+                console.log(todayPrice)
             })
         } catch (e) {
             console.log('----------Error---------')
@@ -119,8 +140,7 @@ const SCWCalculator = (props) => {
         }
     }
     function getHistoryPrice(id, w) {
-        const formattedDate = dateFormatter(w, 'dmy')
-        let url = 'https://api.coingecko.com/api/v3/coins/' + id + '/history?date=' + formattedDate + '&localization=false'
+        let url = 'https://api.coingecko.com/api/v3/coins/' + id + '/history?date=' + w + '&localization=false'
         console.log(url)
         try {
             fetch(url)
@@ -128,14 +148,9 @@ const SCWCalculator = (props) => {
                 return response.json()
             }).then(data => {
                 try{
+                    console.log(data)
                     const histPrice = data.market_data.current_price.usd
-                    console.log(histPrice)
-                    if (histPrice >= 1){
-                        const formattedHistPrice = moneyFormatter.format(histPrice)
-                        setHistoryPrice(formattedHistPrice)
-                    }else{
-                        setHistoryPrice(histPrice.toFixed(5))
-                    }
+                    setHistoryPrice({formatted: moneyFormatter.format(histPrice), unformatted: histPrice.toFixed(5)})
                 } catch (e) {
                     console.log('----------Error---------')
                     console.log(e)
@@ -150,36 +165,31 @@ const SCWCalculator = (props) => {
     }
 
     function tryCalc(tryWhat, tryWhen, tryAmount) {
-
-        let coin = []
-        if (tryWhat && tryWhen && tryWhat != null){
-            getHistoryPrice(tryWhat.id, tryWhen)
-        }
-
+        console.log('try')
+        
         if (historyPrice && tryAmount){
-            const numCoins = tryAmount / historyPrice
-            const intTodayPrice = Number(todayPrice.replace(/[^0-9.-]+/g,""));
-            const finalAmount = numCoins * intTodayPrice
+            const numCoins = tryAmount / historyPrice.unformatted
+            const finalAmount = numCoins * todayPrice.unformatted
+            console.log('tryAmount: ' + tryAmount)
             console.log('Num: ' + numCoins)
-            console.log('Today: ' + todayPrice)
+            console.log('History: ' + historyPrice.unformatted)
+            console.log('Today: ' + todayPrice.unformatted)
             console.log('Final: ' + finalAmount)
-            console.log('Int Today: ' + intTodayPrice)
             setCoinCount(numCoins)
-
-            if (intTodayPrice >= 1){
-                const formattedFinal = moneyFormatter.format(finalAmount)
-                setCouldaAmount(formattedFinal)
-            }else{
-                setCouldaAmount(finalAmount)
-            }
+            console.log(coinCount)
             
+            setCouldaAmount({formatted: moneyFormatter.format(finalAmount), unformatted: finalAmount.toFixed(5)})
+            console.log('try if');
         }else{
             setCoinCount()
             setCouldaAmount()
+            console.log('try else');
         }
+        console.log(when);
     }
     useEffect(() => {
         getCoinList()
+        
     }, [])
 
     let optionItems = coinList;
@@ -191,7 +201,7 @@ const SCWCalculator = (props) => {
                 <Header PageName="Should'a Could'a Would'a"  />
                 
                 <div className="body-content">
-                <form className="section" >
+                <form className="section">
                     <Grid container spacing={2} justify="space-between">
                         <Grid container item xs={4}>
                             <Autocomplete
@@ -233,7 +243,16 @@ const SCWCalculator = (props) => {
                                         The price of {what.name} today is: 
                                         {todayPrice ?
                                             <span>
-                                                &nbsp; {todayPrice}
+                                                {todayPrice.unformatted > 1 ?
+                                                    <span>
+                                                        &nbsp; {todayPrice.formatted}
+                                                    </span>
+                                                    :
+                                                    <span>
+                                                        &nbsp; {todayPrice.unformatted}
+                                                    </span>
+                                                }
+                                                
                                             </span>
                                             :
                                             null
@@ -246,14 +265,24 @@ const SCWCalculator = (props) => {
                         <Grid container item xs={12}>
                             {what && when  ?
                                 <div>
-                                    The price of {what.name} on {when} was: 
-                                    {historyPrice  ?
-                                        <span>
-                                            &nbsp;  {historyPrice}
-                                        </span>
-                                        :
-                                        null
-                                    }
+                                    The price of {what.name} on {displayDate} was: 
+                                    {historyPrice ?
+                                            <span>
+                                                {historyPrice.unformatted > 1 ?
+                                                    <span>
+                                                        
+                                                        &nbsp; {historyPrice.formatted}
+                                                    </span>
+                                                    :
+                                                    <span>
+                                                        &nbsp; {historyPrice.unformatted}
+                                                    </span>
+                                                }
+                                                
+                                            </span>
+                                            :
+                                            null
+                                        }
                                 </div>
                                 :
                                 null
@@ -265,12 +294,23 @@ const SCWCalculator = (props) => {
                                 <div>
                                     Your investment of {amount} Could'a been worth 
                                     {couldaAmount ?
-                                        <span>
-                                            &nbsp; {couldaAmount}
-                                        </span>
-                                        :
-                                        null
-                                    }
+                                            <span>
+                                                {couldaAmount.unformatted > 1 ?
+                                                    <span>
+                                                        
+                                                        &nbsp; {couldaAmount.formatted}
+                                                    </span>
+                                                    :
+                                                    <span>
+                                                        {historyPrice.unformatted}
+                                                        
+                                                    </span>
+                                                }
+                                                
+                                            </span>
+                                            :
+                                            null
+                                        }
                                 </div>
                                 :
                                 null
@@ -280,7 +320,10 @@ const SCWCalculator = (props) => {
                         <Grid container item xs={12}>
                             {coinCount ?
                                 <div>
-                                    Number of Coins: {coinCount}
+                                    &nbsp; amount: {amount} /<br/>
+                                    &nbsp; history price: {historyPrice.unformatted}<br/>
+                                    = Number of Coins: {coinCount}
+                                    
                                 </div>
                                 :
                                 null
